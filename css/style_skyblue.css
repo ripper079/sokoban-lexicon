@@ -1,0 +1,20 @@
+:root {
+    /* Color variables */
+    
+    /* For total app*/
+	--background-color-app: #222222;    
+    
+
+
+}
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    
+}
