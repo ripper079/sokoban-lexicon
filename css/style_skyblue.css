@@ -1,24 +1,96 @@
 :root {
-    /* Color variables */
-    
-    /* For total app*/
-	--background-color-app: #222222;    
-    
+    --main-bakground-color: #FED966; 
 
+    --size-width-block: 50px;
+    --size-height-block: 50px;
 
+    /* width: 1024;    
+	margin: auto; */
+
+    background-color: orange;
 }
 
 
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+
+#container {
+    background-color: rgb(43, 110, 202);
+    position: relative;
+
+    width: 800px;
+    height: 400px;
+    margin: auto;
+    margin-top: 40px;
 }
 
-#container-game {
-    background-color: steelblue;
-}
-
-body {
+.child-one {
     background-color: lightgreen;
+    
+    position: absolute;
+    width: var(--size-width-block);
+    height: var(--size-height-block);
+    
+    top: 0px;
+    left: 0px;
 }
+
+.child-two {
+    background-color: rgb(234, 139, 139);
+    
+    position: absolute;
+    width: var(--size-width-block);
+    height: var(--size-height-block);
+    
+    top: 0px;
+    left: 50px;
+}
+
+
+.child-three {
+    background-color: rgb(232, 24, 225);
+
+    position: absolute;
+    width: var(--size-width-block);
+    height: var(--size-height-block);
+    
+    top: 0px;
+    left: 100px;
+}
+
+.child-four {
+    background-color: rgb(251, 243, 10);
+
+    position: absolute;
+    width: var(--size-width-block);
+    height: var(--size-height-block);
+    
+    top: 0px;
+    left: 150px;
+}
+
+.child-five {
+    background-color: rgb(28, 213, 238);
+
+    position: absolute;
+    width: var(--size-width-block);
+    height: var(--size-height-block);
+    
+    top: 0px;
+    left: 200px;
+}
+
+
+/* 
+body {
+    background-color: darkgreen;
+    border: 1px black solid;
+    color: rgb(85, 26, 195);
+
+     width: 400px;
+    height: 400px; 
+    margin: auto;
+    margin-top: 25px;
+    
+} 
+*/
+
+
