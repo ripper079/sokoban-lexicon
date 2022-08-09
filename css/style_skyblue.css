@@ -8,6 +8,18 @@
     --goal-color: #FF0000;
 
     --empty-space-color: #DED6AD;
+
+    --filler-background-color: #09f2e6;
+}
+
+#container {
+    background-color: var(--filler-background-color);
+
+    position: relative;
+    width: 900px;
+    height: 900px;
+    margin: auto;
+    margin-top: 10px;
 }
 
 .tile-wall{

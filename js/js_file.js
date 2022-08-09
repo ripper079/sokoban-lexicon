@@ -58,22 +58,12 @@ document.addEventListener('keyup', (event) => {
 
 // //Setup for container div
 let containerForBlocks = document.getElementById("container");
-containerForBlocks.style.backgroundColor = "#09f2e6";//Cyan background
-containerForBlocks.style.position = "relative";
-containerForBlocks.style.width = "900px";
-containerForBlocks.style.height = "900px";
-containerForBlocks.style.margin = "auto";
-containerForBlocks.style.marginTop = "10px";
-
-
     function createInitialMap(){        
         for (let y = 0; y < tileMap01.height; y++){
             
             for (let x = 0; x < tileMap01.width; x++){
             //Create a div element
-            let divElement = document.createElement('div'); 
-
-            
+            let divElement = document.createElement('div');             
 
             //Create id string
             let idString = "x" + x + "y" + y;
@@ -87,33 +77,23 @@ containerForBlocks.style.marginTop = "10px";
             divElement.style.position = "absolute";
             
             //Wall color
-            if (tileMap01.mapGrid[y][x][0] === "W"){
-                // divElement.style.backgroundColor = generateWallColor();
-                // divElement.className = Tiles.Wall;
+            if (tileMap01.mapGrid[y][x][0] === "W"){                
                 divElement.classList.add(Tiles.Wall);
             }
             //Movable block color
             else if (tileMap01.mapGrid[y][x][0] === "B"){
-                //divElement.style.backgroundColor = generateBlockColorNotInPosition();
-                // divElement.className = Entities.Block;
                 divElement.classList.add(Entities.Block);
             }
             //Player Color
-            else if (tileMap01.mapGrid[y][x][0] === "P"){
-                //divElement.style.backgroundColor = generatePlayerColor();
-                //divElement.className = Entities.Character;
+            else if (tileMap01.mapGrid[y][x][0] === "P"){                
                 divElement.classList.add(Entities.Character);
             }
             //Goal color
             else if (tileMap01.mapGrid[y][x][0] === "G"){
-                // divElement.style.backgroundColor = generateGoalColor();
-                // divElement.className = Tiles.Goal;
                 divElement.classList.add(Tiles.Goal);
             }
             //Empty color
             else {
-                // divElement.style.backgroundColor = generateEmptySpaceColor();
-                // divElement.className = Tiles.Space;
                 divElement.classList.add(Tiles.Space);
             }
 
@@ -228,7 +208,7 @@ containerForBlocks.style.marginTop = "10px";
 
 
 
-    
+
     
     // Functions for generating different colors
 /*
