@@ -1,4 +1,5 @@
 console.log("external js-file loaded");
+console.log("|" +  tileMap01.mapGrid[3][4][0] + "|");
 
 let xSizeBlock = 32;
 let ySizeBlock = 32;
@@ -14,7 +15,7 @@ document.addEventListener('keyup', (event) => {
     var name = event.key;
     var code = event.code;
     // Alert the key name and key code on keydown
-    // console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
+    // console.log(`Key pressed ${name} \r\n Key code value: ${code}`);    
 
     //Arrow Down
     if (code == "ArrowDown" || code == "KeyS")
@@ -40,13 +41,13 @@ document.addEventListener('keyup', (event) => {
         movePlayerRight();
         
     }   
-    // F12
+    // P - Print Player Position
     else if (code == "KeyP")
     {
         console.log("Get player position");
         console.log("X cord for player:|" + findXCordPlayer() + "|");
         console.log("Y cord for player:|" + findYCordPlayer() + "|");        
-    }   
+    }  
     else {
         console.log("Key not defined yet");
     }
@@ -82,37 +83,38 @@ containerForBlocks.style.marginTop = "10px";
             //Id tag
             divElement.id = idString;
             
-
             //Set postion style
             divElement.style.position = "absolute";
             
-            //Set Color
-            
-
             //Wall color
             if (tileMap01.mapGrid[y][x][0] === "W"){
-                divElement.style.backgroundColor = generateWallColor();
-                divElement.className = Tiles.Wall;
+                // divElement.style.backgroundColor = generateWallColor();
+                // divElement.className = Tiles.Wall;
+                divElement.classList.add(Tiles.Wall);
             }
             //Movable block color
             else if (tileMap01.mapGrid[y][x][0] === "B"){
-                divElement.style.backgroundColor = generateBlockColorNotInPosition();
-                divElement.className = Entities.Block;
+                //divElement.style.backgroundColor = generateBlockColorNotInPosition();
+                // divElement.className = Entities.Block;
+                divElement.classList.add(Entities.Block);
             }
             //Player Color
             else if (tileMap01.mapGrid[y][x][0] === "P"){
-                divElement.style.backgroundColor = generatePlayerColor();
-                divElement.className = Entities.Character;
+                //divElement.style.backgroundColor = generatePlayerColor();
+                //divElement.className = Entities.Character;
+                divElement.classList.add(Entities.Character);
             }
             //Goal color
             else if (tileMap01.mapGrid[y][x][0] === "G"){
-                divElement.style.backgroundColor = generateGoalColor();
-                divElement.className = Tiles.Goal
+                // divElement.style.backgroundColor = generateGoalColor();
+                // divElement.className = Tiles.Goal;
+                divElement.classList.add(Tiles.Goal);
             }
             //Empty color
             else {
-                divElement.style.backgroundColor = generateEmptySpaceColor();
-                divElement.className = Tiles.Space;
+                // divElement.style.backgroundColor = generateEmptySpaceColor();
+                // divElement.className = Tiles.Space;
+                divElement.classList.add(Tiles.Space);
             }
 
             divElement.style.border = "1px black solid";
@@ -133,7 +135,6 @@ containerForBlocks.style.marginTop = "10px";
             }
         }
     }
-
 
     //Player functions
     function findXCordPlayer(){
@@ -160,12 +161,56 @@ containerForBlocks.style.marginTop = "10px";
         }
     }
 
+
     function movePlayerUp(){
 
         console.log("Player moved UP[in function]");
-        let currentXCordPlayer = findXCordPlayer();
-        let currentYCordPlayer = findYCordPlayer();
+        
+        // Get old AND new cordinates
+        
+        let oldXCordPlayer = findXCordPlayer();
+        let oldYCordPlayer = findYCordPlayer();
+        
+        let newXCordPlayer = oldXCordPlayer;
+        let newYCordPlayer = oldYCordPlayer - 1;
+
+        //Id string player
+        let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
+        let idStringUpperElement = "x" + newXCordPlayer + "y" + newYCordPlayer;        
+
+        console.log("player cordinates:" + idStringPlayerOld);
+        console.log("Block element cordinates above player: " + idStringUpperElement)
+
+        let playerElement = document.getElementById(idStringPlayerOld);
+        let blockElement = document.getElementById(idStringUpperElement);
+
+
+        //Swap the elements [Without checkes - But works]
+        // playerElement.style.backgroundColor = "#0000ff";
+        // blockElement.style.backgroundColor = "#00ff00";
+
+        //Determine which block is above player
+        //An empty block - swap is possible
+        if (blockElement.className == Tiles.Space)
+        {
+            console.log("Swap is possible");
+            console.log("Swapping between player and empty space");
+            
+            playerElement.style.backgroundColor = generateEmptySpaceColor();
+            blockElement.style.backgroundColor = generatePlayerColor();
+            //Swap "P" with " "
+
+            tileMap01.mapGrid[oldYCordPlayer][oldXCordPlayer][0] = " ";
+            tileMap01.mapGrid[newYCordPlayer][newXCordPlayer][0] = "P";
+
+        }
+
+        //Get player block AND upper block [from id string]
+
+        //Swap playerblock with upperblock
+        
     }
+
     function movePlayerDown(){
         console.log("Player moved DOWN[in functions]");
     }
@@ -180,8 +225,13 @@ containerForBlocks.style.marginTop = "10px";
 
     
     
+
+
+
+    
     
     // Functions for generating different colors
+/*
     function generateRandomColor()
     {
         const arrayOfColorFunctions = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
@@ -227,7 +277,7 @@ containerForBlocks.style.marginTop = "10px";
         return playerColor;
     }
 
-
+*/
 
     //Game start
     createInitialMap();
