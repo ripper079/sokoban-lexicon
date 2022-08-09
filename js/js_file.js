@@ -1,7 +1,7 @@
 console.log("external js-file loaded");
 
-let xSizeBlock = 50;
-let ySizeBlock = 50;
+let xSizeBlock = 32;
+let ySizeBlock = 32;
 
 let bodypadding = xSizeBlock * 2;
 
@@ -17,25 +17,36 @@ document.addEventListener('keyup', (event) => {
     // console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
 
     //Arrow Down
-    if (code == "ArrowDown")
+    if (code == "ArrowDown" || code == "KeyS")
     {
-        console.log("Player moved DOWN");
+        movePlayerDown();
+        
     }
     //Arrow Up
-    else if (code == "ArrowUp")
+    else if (code == "ArrowUp" || code == "KeyW")
     {
-        console.log("Player moved UP");
+        movePlayerUp();
+        
     }
     //Arrow Left
-    else if (code == "ArrowLeft")
+    else if (code == "ArrowLeft" || code == "KeyA")
     {
-        console.log("Player moved LEFT");
+        movePlayerLeft();
+        
     }    
     //Arrow Right
-    else if (code == "ArrowRight")
+    else if (code == "ArrowRight" || code == "KeyD")
     {
-        console.log("Player moved RIGHT");
-    }    
+        movePlayerRight();
+        
+    }   
+    // F12
+    else if (code == "KeyP")
+    {
+        console.log("Get player position");
+        console.log("X cord for player:|" + findXCordPlayer() + "|");
+        console.log("Y cord for player:|" + findYCordPlayer() + "|");        
+    }   
     else {
         console.log("Key not defined yet");
     }
@@ -44,149 +55,133 @@ document.addEventListener('keyup', (event) => {
 
   
 
-//Setup for container div
+// //Setup for container div
 let containerForBlocks = document.getElementById("container");
-containerForBlocks.style.backgroundColor = "#0000ff";//Blue background
+containerForBlocks.style.backgroundColor = "#09f2e6";//Cyan background
 containerForBlocks.style.position = "relative";
-containerForBlocks.style.width = "800px";
-containerForBlocks.style.height = "450px";
+containerForBlocks.style.width = "900px";
+containerForBlocks.style.height = "900px";
 containerForBlocks.style.margin = "auto";
-containerForBlocks.style.marginTop = "40px";
-
-//The Div element - First
-let divElement = document.createElement('div');
-divElement.id = "x0y0";
-//divElement.style.backgroundColor = "#00ff00";//Green background
-divElement.style.backgroundColor = generateWallColor();
-divElement.style.position = "absolute";
-//divElement.style.width = "50px";
-divElement.style.width = xSizeBlock + "px";
-//divElement.style.height = "50px";
-divElement.style.height = ySizeBlock + "px";
-divElement.style.top = "0px";
-divElement.style.left = "0px";
+containerForBlocks.style.marginTop = "10px";
 
 
-//Add the div html element to container
-containerForBlocks.appendChild(divElement);
-
-
-//The Div element - Second
-divElement = document.createElement('div');
-divElement.id = "x1y0";
-//divElement.style.backgroundColor = "#00ff00";//Green background
-divElement.style.backgroundColor = generateGoalColor();
-divElement.style.position = "absolute";
-//divElement.style.width = "50px";
-divElement.style.width = xSizeBlock + "px";
-//divElement.style.height = "50px";
-divElement.style.height = ySizeBlock + "px";
-divElement.style.top = "0px";
-divElement.style.left = "50px";
-
-
-//Add the div html element to container
-containerForBlocks.appendChild(divElement);
-
-//The Div element - Third
-divElement = document.createElement('div');
-divElement.id = "x1y0";
-//divElement.style.backgroundColor = "#00ff00";//Green background
-divElement.style.backgroundColor = generateBlockColorNotInPosition();
-divElement.style.position = "absolute";
-//divElement.style.width = "50px";
-divElement.style.width = xSizeBlock + "px";
-//divElement.style.height = "50px";
-divElement.style.height = ySizeBlock + "px";
-divElement.style.top = "0px";
-divElement.style.left = "100px";
-
-
-//Add the div html element to container
-containerForBlocks.appendChild(divElement);
-
-
-  
-//   function createMap(){
-    //   //Create a html element - div  
-    //   let divElement = document.createElement('div');  
-    //   //Set content
-    //   divElement.textContent = "A";
-    //   //Set id
-    //   divElement.id = "x0y0";
-
-    // Set background for body to pink    
-    // document.body.style.backgroundColor = generateRandomColor();
-
-    //Add padding to top, bottom, left and right
-    // document.body.style.width = (bodypadding + totalWidthContainerBlock + bodypadding) + "px";
-    // document.body.style.height = (bodypadding + totalHeightContainerBlock + bodypadding) + "px";
-
-    // document.body.style.position = "relative";
-
-    // let containerForBlocks = document.getElementById("container");
-
-
-    // let divElement = document.createElement('div');
-    // divElement.id = "fooo";
-    // divElement.style.width = xSizeBlock + "px";
-    // divElement.style.width = ySizeBlock + "px";
-    // divElement.style.position = "absolute";
-    // divElement.style.top = "100px"
-    // divElement.style.left = "100px"
-    // divElement.style.zIndex = "1";
-    
-
-    // //Light blue
-    // divElement.style.backgroundColor = "#85ABCF";
-    // containerForBlocks.appendChild(divElement);
-
-
-    // containerForCells.style.maxHeight = "1000px";
-    // containerForCells.style.gridAutoRows = "100px";
-    // containerForCells.style.gridAutoColumns = "100px";
-    // containerForCells.style.display = "grid";
-    // containerForCells.style.gap = "2px";
-    // containerForCells.style.gridTemplateColumns = "repeat(19, 1fr)";
-    // containerForCells.style.gridTemplateRows = "repeat(16, 1fr)";
-    // //Dark blue
-    // document.body.style.backgroundColor = "#35497C";
-      
-    //   for (let y = 0; y < tileMap01.height; y++){
-    //     let divElement;
-          
-    //     for (let x = 0; x < tileMap01.width; x++){
-    //         //Create id string
-    //         let idString = "x" + x + "y" + y;
-    //         divElement = document.createElement('div');
-    //         divElement.textContent = idString;
-    //         divElement.id = idString;
-    //         //Text color - White smoke
-    //         divElement.style.color = "#f5f5f5";
-    //         //Light blue
-    //         divElement.style.backgroundColor = "#85ABCF";
+    function createInitialMap(){        
+        for (let y = 0; y < tileMap01.height; y++){
             
-    //         divElement.height = "100px";
-    //         divElement.width = "100px";
-    //         // divElement.style.margin = "4px";
-    //         divElement.style.textAlign = "center";
+            for (let x = 0; x < tileMap01.width; x++){
+            //Create a div element
+            let divElement = document.createElement('div'); 
+
+            
+
+            //Create id string
+            let idString = "x" + x + "y" + y;
+            //Set smaller font size
+            divElement.style.fontSize = "8px";
+            divElement.textContent = idString;
+            //Id tag
+            divElement.id = idString;
+            
+
+            //Set postion style
+            divElement.style.position = "absolute";
+            
+            //Set Color
+            
+
+            //Wall color
+            if (tileMap01.mapGrid[y][x][0] === "W"){
+                divElement.style.backgroundColor = generateWallColor();
+                divElement.className = Tiles.Wall;
+            }
+            //Movable block color
+            else if (tileMap01.mapGrid[y][x][0] === "B"){
+                divElement.style.backgroundColor = generateBlockColorNotInPosition();
+                divElement.className = Entities.Block;
+            }
+            //Player Color
+            else if (tileMap01.mapGrid[y][x][0] === "P"){
+                divElement.style.backgroundColor = generatePlayerColor();
+                divElement.className = Entities.Character;
+            }
+            //Goal color
+            else if (tileMap01.mapGrid[y][x][0] === "G"){
+                divElement.style.backgroundColor = generateGoalColor();
+                divElement.className = Tiles.Goal
+            }
+            //Empty color
+            else {
+                divElement.style.backgroundColor = generateEmptySpaceColor();
+                divElement.className = Tiles.Space;
+            }
+
+            divElement.style.border = "1px black solid";
+            // Dimension
+            
+            divElement.style.width = xSizeBlock + "px";            
+            divElement.style.height = ySizeBlock + "px";
+
+            let topXCord = xSizeBlock * y;
+            let topYCord = ySizeBlock * x;         
+            //Position
+            divElement.style.top = topXCord + "px";
+            divElement.style.left = topYCord + "px";
 
 
-    //         document.body.appendChild(divElement);
-    //     }
+            //Add the div html element to container
+            containerForBlocks.appendChild(divElement);
+            }
+        }
+    }
 
-    //   }
 
+    //Player functions
+    function findXCordPlayer(){
+        for (let y = 0; y < tileMap01.height; y++){
 
-    // containerForBlocks.style.width = totalWidthContainerBlock;
-    // containerForBlocks.style.height = totalHeightContainerBlock;
-    // containerForBlocks.style.border = "2px solid yellow";
-    // console.log("Width: " + totalWidthContainerBlock);
-    // console.log("Heigth: " + totalHeightContainerBlock);
-      
-    // }
-    // createMap();
+            for (let x = 0; x < tileMap01.width; x++){
+                if (tileMap01.mapGrid[y][x][0] === "P")
+                {
+                    return x;
+                }
+            }
+        }
+    }
+
+    function findYCordPlayer(){
+        for (let y = 0; y < tileMap01.height; y++){
+
+            for (let x = 0; x < tileMap01.width; x++){
+                if (tileMap01.mapGrid[y][x][0] === "P")
+                {
+                    return y;
+                }
+            }
+        }
+    }
+
+    function movePlayerUp(){
+
+        console.log("Player moved UP[in function]");
+        let currentXCordPlayer = findXCordPlayer();
+        let currentYCordPlayer = findYCordPlayer();
+    }
+    function movePlayerDown(){
+        console.log("Player moved DOWN[in functions]");
+    }
+    function movePlayerLeft(){
+        console.log("Player moved LEFT[in function]");
+    }
     
+    function movePlayerRight(){
+        console.log("Player moved RIGHT[In function]");
+    }
+
+
+    
+    
+    
+    // Functions for generating different colors
     function generateRandomColor()
     {
         const arrayOfColorFunctions = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
@@ -217,7 +212,8 @@ containerForBlocks.appendChild(divElement);
     }
 
     function generateGoalColor(){
-        let lightPinkColor = "#D59686";
+        // let lightPinkColor = "#D59686";
+        let lightPinkColor = "#FF0000";
         return lightPinkColor;
     }
 
@@ -226,8 +222,15 @@ containerForBlocks.appendChild(divElement);
         return emptySpaceColor;
     }
 
+    function generatePlayerColor(){
+        let playerColor = "#FFFF00";
+        return playerColor;
+    }
 
 
+
+    //Game start
+    createInitialMap();
 
 
 
