@@ -1,15 +1,17 @@
 :root {
     --wall-color: #848484;
 
-    --block-not-in-position-color: #FFB552;
-
+    
     --player-color: #FFFF00;
-
+    
     --goal-color: #FF0000;
-
+    
     --empty-space-color: #DED6AD;
-
+    
     --filler-background-color: #09f2e6;
+
+    --crate-not-in-position-color: #FFB552;
+    --crate-in-position-color: #cf0ded;
 }
 
 #container {
@@ -41,9 +43,9 @@
 
 
 .entity-block {
-    background-color: var(--block-not-in-position-color);
+    background-color: var(--crate-not-in-position-color);
 }
 
 .entity-block-goal {
-    
+    background-color: var(--crate-in-position-color);
 }

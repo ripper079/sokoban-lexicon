@@ -9,6 +9,8 @@ let bodypadding = xSizeBlock * 2;
 let totalWidthContainerBlock = xSizeBlock * tileMap01.width;
 let totalHeightContainerBlock = ySizeBlock * tileMap01.height;
 
+let playerXCord = 11;
+let playerYCord = 11;; 
 
 // Add event listener on keydown
 document.addEventListener('keyup', (event) => {
@@ -40,14 +42,7 @@ document.addEventListener('keyup', (event) => {
     {
         movePlayerRight();
         
-    }   
-    // P - Print Player Position
-    else if (code == "KeyP")
-    {
-        console.log("Get player position");
-        console.log("X cord for player:|" + findXCordPlayer() + "|");
-        console.log("Y cord for player:|" + findYCordPlayer() + "|");        
-    }  
+    }        
     else {
         console.log("Key not defined yet");
     }
@@ -116,41 +111,41 @@ let containerForBlocks = document.getElementById("container");
         }
     }
 
-    //Player functions
-    function findXCordPlayer(){
-        for (let y = 0; y < tileMap01.height; y++){
+    // //Player functions
+    // function findXCordPlayer(){
+    //     for (let y = 0; y < tileMap01.height; y++){
 
-            for (let x = 0; x < tileMap01.width; x++){
-                if (tileMap01.mapGrid[y][x][0] === "P")
-                {
-                    return x;
-                }
-            }
-        }
-    }
+    //         for (let x = 0; x < tileMap01.width; x++){
+    //             if (tileMap01.mapGrid[y][x][0] === "P")
+    //             {
+    //                 return x;
+    //             }
+    //         }
+    //     }
+    // }
 
-    function findYCordPlayer(){
-        for (let y = 0; y < tileMap01.height; y++){
+    // function findYCordPlayer(){
+    //     for (let y = 0; y < tileMap01.height; y++){
 
-            for (let x = 0; x < tileMap01.width; x++){
-                if (tileMap01.mapGrid[y][x][0] === "P")
-                {
-                    return y;
-                }
-            }
-        }
-    }
+    //         for (let x = 0; x < tileMap01.width; x++){
+    //             if (tileMap01.mapGrid[y][x][0] === "P")
+    //             {
+    //                 return y;
+    //             }
+    //         }
+    //     }
+    // }
 
 
     function movePlayerUp(){
 
         console.log("Player moved UP[in function]");
         
-        // Get old AND new cordinates
+        // Get old AND new cordinates        
+        let oldXCordPlayer = playerXCord;
+        let oldYCordPlayer = playerYCord;
         
-        let oldXCordPlayer = findXCordPlayer();
-        let oldYCordPlayer = findYCordPlayer();
-        
+        //Get new Cordinates
         let newXCordPlayer = oldXCordPlayer;
         let newYCordPlayer = oldYCordPlayer - 1;
 
@@ -158,53 +153,204 @@ let containerForBlocks = document.getElementById("container");
         let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
         let idStringUpperElement = "x" + newXCordPlayer + "y" + newYCordPlayer;        
 
-        console.log("player cordinates:" + idStringPlayerOld);
-        console.log("Block element cordinates above player: " + idStringUpperElement)
+        // console.log("player cordinates:" + idStringPlayerOld);
+        // console.log("Block element cordinates above player: " + idStringUpperElement)
 
         let playerElement = document.getElementById(idStringPlayerOld);
-        let blockElement = document.getElementById(idStringUpperElement);
+        let blockOverPlayer = document.getElementById(idStringUpperElement);
 
-
-        //Swap the elements [Without checkes - But works]
-        // playerElement.style.backgroundColor = "#0000ff";
-        // blockElement.style.backgroundColor = "#00ff00";
-
-        //Determine which block is above player
-        //An empty block - swap is possible
-        if (blockElement.className == Tiles.Space)
-        {
-            console.log("Swap is possible");
-            console.log("Swapping between player and empty space");
-            
-            playerElement.style.backgroundColor = generateEmptySpaceColor();
-            blockElement.style.backgroundColor = generatePlayerColor();
-            //Swap "P" with " "
-
-            tileMap01.mapGrid[oldYCordPlayer][oldXCordPlayer][0] = " ";
-            tileMap01.mapGrid[newYCordPlayer][newXCordPlayer][0] = "P";
-
+        //Move UP to tile if possible
+        if (blockOverPlayer.className == Tiles.Space){
+            console.log("Block over player is:" + Tiles.Space + ". Movement UP is possible");
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            document.getElementById(idStringUpperElement).classList.replace(Tiles.Space, Entities.Character);
+            playerYCord -= 1;
         }
 
-        //Get player block AND upper block [from id string]
-
-        //Swap playerblock with upperblock
         
     }
 
     function movePlayerDown(){
         console.log("Player moved DOWN[in functions]");
+
+         // Get old AND new cordinates        
+         let oldXCordPlayer = playerXCord;
+         let oldYCordPlayer = playerYCord;
+         
+         //Get new Cordinates
+         let newXCordPlayer = oldXCordPlayer;
+         let newYCordPlayer = oldYCordPlayer + 1;
+
+         //Id string player
+        let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
+        let idStringLowerElement = "x" + newXCordPlayer + "y" + newYCordPlayer;  
+
+        console.log("player cordinates:" + idStringPlayerOld);
+        console.log("Block element cordinates belove player: " + idStringLowerElement)
+
+        let playerElement = document.getElementById(idStringPlayerOld);
+        let blockUnderPlayer = document.getElementById(idStringLowerElement);
+
+        //Move DOWN to tile if possible
+        if (blockUnderPlayer.className == Tiles.Space) {
+            console.log("Block under player is:" + Tiles.Space + ". Movement DOWN is possible");
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            document.getElementById(idStringLowerElement).classList.replace(Tiles.Space, Entities.Character);
+            playerYCord += 1;
+        }
+
     }
+
+    //Implement this dfDFSDFSDFSS DFDFSFDSFDSFDS
     function movePlayerLeft(){
         console.log("Player moved LEFT[in function]");
+
+        // Get old AND new cordinates        
+        let oldXCordPlayer = playerXCord;
+        let oldYCordPlayer = playerYCord;
+        
+        //Get new Cordinates
+        let newXCordPlayer = oldXCordPlayer - 1;
+        let newYCordPlayer = oldYCordPlayer;
+        
+        //Get moved cordinates for moved crate
+        let newXCordCrate = oldXCordPlayer - 2;
+        let newYCordCrate = oldYCordPlayer;
+
+         //Id string player
+         let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
+         let idStringLeftElement = "x" + newXCordPlayer + "y" + newYCordPlayer;
+         //Id string moved crate
+         let idStringCrate = "x" + newXCordCrate + "y" + newYCordCrate;
+
+        //  console.log("player cordinates:" + idStringPlayerOld);
+        //  console.log("Block element cordinates to LEFT os player: " + idStringLeftElement);
+        //  console.log("Block element cordinate to LEFT LEFT of player:" + idStringCrate);
+
+         let playerElement = document.getElementById(idStringPlayerOld);
+         let blockLeftToPlayer = document.getElementById(idStringLeftElement);
+         let crateNewPos = document.getElementById(idStringCrate);
+
+        let oldClassName = playerElement.className;
+        let newClassName = blockLeftToPlayer.className;
+
+
+
+         //Move LEFT to tile if possible
+        if (blockLeftToPlayer.className == Tiles.Space) {
+            console.log("Block to LEFT of player is:" + Tiles.Space + ". Movement LEFT is possible");
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            document.getElementById(idStringLeftElement).classList.replace(Tiles.Space, Entities.Character);
+            playerXCord -= 1;
+        }
+        //Move LEFT to push block to left
+        else if (blockLeftToPlayer.className == Entities.Block && crateNewPos.className == Tiles.Space){
+            console.log("It is possible to move the crate to left one step");
+            document.getElementById(idStringCrate).classList.replace(Tiles.Space, Entities.Block);
+            document.getElementById(idStringLeftElement).classList.replace(Entities.Block, Entities.Character);
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            playerXCord -= 1;
+        }
+
     }
+
     
     function movePlayerRight(){
         console.log("Player moved RIGHT[In function]");
+
+        // Get old AND new cordinates        
+        let oldXCordPlayer = playerXCord;
+        let oldYCordPlayer = playerYCord;
+        
+        //Get new Cordinates
+        let newXCordPlayer = oldXCordPlayer + 1;
+        let newYCordPlayer = oldYCordPlayer;
+
+         //Id string player
+         let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
+         let idStringRightElement = "x" + newXCordPlayer + "y" + newYCordPlayer;  
+
+         console.log("player cordinates:" + idStringPlayerOld);
+         console.log("Block element cordinates to LEFT os player: " + idStringRightElement);
+
+         let playerElement = document.getElementById(idStringPlayerOld);
+         let blockRightToPlayer = document.getElementById(idStringRightElement);
+
+         //Move RIGHT to tile if possible
+        if (blockRightToPlayer.className == Tiles.Space) {
+            console.log("Block to RIGHT of player is:" + Tiles.Space + ". Movement RIGHT is possible");
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            document.getElementById(idStringRightElement).classList.replace(Tiles.Space, Entities.Character);
+            playerXCord += 1;
+        }
+        
     }
 
 
+      //Game start
+      createInitialMap();
+
     
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -259,9 +405,7 @@ let containerForBlocks = document.getElementById("container");
 
 */
 
-    //Game start
-    createInitialMap();
-
+  
 
 
 
