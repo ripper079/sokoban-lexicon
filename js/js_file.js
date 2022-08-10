@@ -111,53 +111,35 @@ let containerForBlocks = document.getElementById("container");
         }
     }
 
-    // //Player functions
-    // function findXCordPlayer(){
-    //     for (let y = 0; y < tileMap01.height; y++){
-
-    //         for (let x = 0; x < tileMap01.width; x++){
-    //             if (tileMap01.mapGrid[y][x][0] === "P")
-    //             {
-    //                 return x;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // function findYCordPlayer(){
-    //     for (let y = 0; y < tileMap01.height; y++){
-
-    //         for (let x = 0; x < tileMap01.width; x++){
-    //             if (tileMap01.mapGrid[y][x][0] === "P")
-    //             {
-    //                 return y;
-    //             }
-    //         }
-    //     }
-    // }
-
-
+  
     function movePlayerUp(){
 
         console.log("Player moved UP[in function]");
         
-        // Get old AND new cordinates        
+        // Get old cordinates for PLAYER
         let oldXCordPlayer = playerXCord;
         let oldYCordPlayer = playerYCord;
         
-        //Get new Cordinates
+        //Get new Cordinates for PLAYER
         let newXCordPlayer = oldXCordPlayer;
         let newYCordPlayer = oldYCordPlayer - 1;
 
-        //Id string player
+        //Get new  cordinates for moved CRATE
+        let newXCordCrate = oldXCordPlayer;
+        let newYCordCrate = oldYCordPlayer - 2;
+
+        //Id string PLAYER
         let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
-        let idStringUpperElement = "x" + newXCordPlayer + "y" + newYCordPlayer;        
+        let idStringUpperElement = "x" + newXCordPlayer + "y" + newYCordPlayer;  
+        //Id string moved CRATE
+        let idStringCrate = "x" + newXCordCrate + "y" + newYCordCrate;      
 
         // console.log("player cordinates:" + idStringPlayerOld);
         // console.log("Block element cordinates above player: " + idStringUpperElement)
 
         let playerElement = document.getElementById(idStringPlayerOld);
         let blockOverPlayer = document.getElementById(idStringUpperElement);
+        let crateNewPos = document.getElementById(idStringCrate);
 
         //Move UP to tile if possible
         if (blockOverPlayer.className == Tiles.Space){
@@ -166,6 +148,16 @@ let containerForBlocks = document.getElementById("container");
             document.getElementById(idStringUpperElement).classList.replace(Tiles.Space, Entities.Character);
             playerYCord -= 1;
         }
+        // Move player one step up and move crate one step up
+        else if (blockOverPlayer.className == Entities.Block && crateNewPos.className == Tiles.Space){
+            console.log("It is possible to move the crate to up one step");
+
+            document.getElementById(idStringCrate).classList.replace(Tiles.Space, Entities.Block);
+            document.getElementById(idStringUpperElement).classList.replace(Entities.Block, Entities.Character);
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            playerYCord -= 1;
+
+        }
 
         
     }
@@ -173,23 +165,30 @@ let containerForBlocks = document.getElementById("container");
     function movePlayerDown(){
         console.log("Player moved DOWN[in functions]");
 
-         // Get old AND new cordinates        
+         // Get old cordinates for PLAYER        
          let oldXCordPlayer = playerXCord;
          let oldYCordPlayer = playerYCord;
          
-         //Get new Cordinates
+         //Get new Cordinates for PLAYER
          let newXCordPlayer = oldXCordPlayer;
          let newYCordPlayer = oldYCordPlayer + 1;
 
+         //Get new cordinates for moved CRATE
+        let newXCordCrate = oldXCordPlayer;
+        let newYCordCrate = oldYCordPlayer + 2;
+
          //Id string player
         let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
-        let idStringLowerElement = "x" + newXCordPlayer + "y" + newYCordPlayer;  
+        let idStringLowerElement = "x" + newXCordPlayer + "y" + newYCordPlayer; 
+        //Id string moved CRATE
+        let idStringCrate = "x" + newXCordCrate + "y" + newYCordCrate; 
 
         console.log("player cordinates:" + idStringPlayerOld);
         console.log("Block element cordinates belove player: " + idStringLowerElement)
 
         let playerElement = document.getElementById(idStringPlayerOld);
         let blockUnderPlayer = document.getElementById(idStringLowerElement);
+        let crateNewPos = document.getElementById(idStringCrate);
 
         //Move DOWN to tile if possible
         if (blockUnderPlayer.className == Tiles.Space) {
@@ -198,22 +197,29 @@ let containerForBlocks = document.getElementById("container");
             document.getElementById(idStringLowerElement).classList.replace(Tiles.Space, Entities.Character);
             playerYCord += 1;
         }
+        // Move player one step down and move above crate one step down
+        else if (blockUnderPlayer.className == Entities.Block && crateNewPos.className == Tiles.Space){
+            console.log("It is possible to move crate one step down");
 
+            document.getElementById(idStringCrate).classList.replace(Tiles.Space, Entities.Block);
+            document.getElementById(idStringLowerElement).classList.replace(Entities.Block, Entities.Character);
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            playerYCord += 1;
+        }
     }
 
-    //Implement this dfDFSDFSDFSS DFDFSFDSFDSFDS
     function movePlayerLeft(){
         console.log("Player moved LEFT[in function]");
 
-        // Get old AND new cordinates        
+        // Get old cordinates for PLAYER        
         let oldXCordPlayer = playerXCord;
         let oldYCordPlayer = playerYCord;
         
-        //Get new Cordinates
+        //Get new Cordinates for PLAYER
         let newXCordPlayer = oldXCordPlayer - 1;
         let newYCordPlayer = oldYCordPlayer;
         
-        //Get moved cordinates for moved crate
+        //Get new cordinates for moved CRATE
         let newXCordCrate = oldXCordPlayer - 2;
         let newYCordCrate = oldYCordPlayer;
 
@@ -222,11 +228,8 @@ let containerForBlocks = document.getElementById("container");
          let idStringLeftElement = "x" + newXCordPlayer + "y" + newYCordPlayer;
          //Id string moved crate
          let idStringCrate = "x" + newXCordCrate + "y" + newYCordCrate;
-
-        //  console.log("player cordinates:" + idStringPlayerOld);
-        //  console.log("Block element cordinates to LEFT os player: " + idStringLeftElement);
-        //  console.log("Block element cordinate to LEFT LEFT of player:" + idStringCrate);
-
+        
+         //References to elements
          let playerElement = document.getElementById(idStringPlayerOld);
          let blockLeftToPlayer = document.getElementById(idStringLeftElement);
          let crateNewPos = document.getElementById(idStringCrate);
@@ -258,23 +261,28 @@ let containerForBlocks = document.getElementById("container");
     function movePlayerRight(){
         console.log("Player moved RIGHT[In function]");
 
-        // Get old AND new cordinates        
+        // Get old cordinates for PLAYER        
         let oldXCordPlayer = playerXCord;
         let oldYCordPlayer = playerYCord;
         
-        //Get new Cordinates
+        //Get new Cordinates for PLAYER
         let newXCordPlayer = oldXCordPlayer + 1;
         let newYCordPlayer = oldYCordPlayer;
 
+        //Get new cordinates for moved CRATE
+        let newXCordCrate = oldXCordPlayer + 2;
+        let newYCordCrate = oldYCordPlayer;
+
          //Id string player
          let idStringPlayerOld = "x" + oldXCordPlayer + "y" + oldYCordPlayer;
-         let idStringRightElement = "x" + newXCordPlayer + "y" + newYCordPlayer;  
-
-         console.log("player cordinates:" + idStringPlayerOld);
-         console.log("Block element cordinates to LEFT os player: " + idStringRightElement);
-
+         let idStringRightElement = "x" + newXCordPlayer + "y" + newYCordPlayer;
+         //Id string moved crate
+         let idStringCrate = "x" + newXCordCrate + "y" + newYCordCrate;  
+         
+        //References to elements
          let playerElement = document.getElementById(idStringPlayerOld);
          let blockRightToPlayer = document.getElementById(idStringRightElement);
+         let crateNewPos = document.getElementById(idStringCrate);
 
          //Move RIGHT to tile if possible
         if (blockRightToPlayer.className == Tiles.Space) {
@@ -283,7 +291,14 @@ let containerForBlocks = document.getElementById("container");
             document.getElementById(idStringRightElement).classList.replace(Tiles.Space, Entities.Character);
             playerXCord += 1;
         }
-        
+        //Move RIGHT to push block to RIGHT
+        if (blockRightToPlayer.className == Entities.Block && crateNewPos.className == Tiles.Space){
+            console.log("It is possible to the the crate to right one step")
+            document.getElementById(idStringCrate).classList.replace(Tiles.Space, Entities.Block);
+            document.getElementById(idStringRightElement).classList.replace(Entities.Block, Entities.Character);
+            document.getElementById(idStringPlayerOld).classList.replace(Entities.Character, Tiles.Space);
+            playerXCord += 1;
+        }
     }
 
 

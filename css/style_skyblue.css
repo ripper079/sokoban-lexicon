@@ -10,16 +10,16 @@
     
     --filler-background-color: #09f2e6;
 
-    --crate-not-in-position-color: #FFB552;
-    --crate-in-position-color: #cf0ded;
+    --crate-not-in-goal-color: #FFB552;
+    --crate-in-goal-color: #cf0ded;
 }
 
 #container {
     background-color: var(--filler-background-color);
 
     position: relative;
-    width: 900px;
-    height: 900px;
+    width: 700px;
+    height: 700px;
     margin: auto;
     margin-top: 10px;
 }
@@ -43,9 +43,9 @@
 
 
 .entity-block {
-    background-color: var(--crate-not-in-position-color);
+    background-color: var(--crate-not-in-goal-color);
 }
 
 .entity-block-goal {
-    background-color: var(--crate-in-position-color);
+    background-color: var(--crate-in-goal-color);
 }
