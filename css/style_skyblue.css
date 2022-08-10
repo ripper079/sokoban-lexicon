@@ -40,8 +40,6 @@
     background-color: var(--player-color);
 }
 
-
-
 .entity-block {
     background-color: var(--crate-not-in-goal-color);
 }
@@ -49,3 +47,4 @@
 .entity-block-goal {
     background-color: var(--crate-in-goal-color);
 }
+
