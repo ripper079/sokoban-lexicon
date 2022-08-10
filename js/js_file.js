@@ -23,25 +23,25 @@ document.addEventListener('keyup', (event) => {
     //Arrow Down
     if (code == "ArrowDown" || code == "KeyS")
     {
-        movePlayerDown();
+        movePlayerDownVer2();
         
     }
     //Arrow Up
     else if (code == "ArrowUp" || code == "KeyW")
     {
-        movePlayerUp();
+        movePlayerUpVer2();
         
     }
     //Arrow Left
     else if (code == "ArrowLeft" || code == "KeyA")
     {
-        movePlayerLeft();
+        movePlayerLeftVer2();
         
     }    
     //Arrow Right
     else if (code == "ArrowRight" || code == "KeyD")
     {
-        movePlayerRight();
+        movePlayerRightVer2();
         
     }        
     else {
@@ -83,6 +83,8 @@ let containerForBlocks = document.getElementById("container");
             //Player Color
             else if (tileMap01.mapGrid[y][x][0] === "P"){                
                 divElement.classList.add(Entities.Character);
+                //Added
+                divElement.classList.add(Tiles.Space);
             }
             //Goal color
             else if (tileMap01.mapGrid[y][x][0] === "G"){
@@ -227,7 +229,22 @@ let containerForBlocks = document.getElementById("container");
             divBelowPlayer.classList.add(classNamePlayer);
 
             playerYCord++;
+        }
+        //If lower block is crate AND block after that is empty - perform a move   
+        else if (classNameBelowPlayer == Entities.Block && classNameTwoBelowPlayer == Tiles.Space){
+            console.log("Crate movement down is possible");
 
+            //Remove current classes
+            divPlayer.classList.remove(classNamePlayer);
+            divBelowPlayer.classList.remove(classNameBelowPlayer);
+            divTwoBelowPlayer.classList.remove(classNameTwoBelowPlayer);
+
+            //Add classes
+            divTwoBelowPlayer.classList.add(classNameBelowPlayer);
+            divBelowPlayer.classList.add(classNamePlayer);
+            divPlayer.classList.add(Tiles.Space);
+
+            playerYCord++;
         }
 
     }
@@ -296,7 +313,6 @@ let containerForBlocks = document.getElementById("container");
         }
 
     }
-
     
     function movePlayerRight(){
         console.log("Player moved RIGHT[In function]");
@@ -346,6 +362,232 @@ let containerForBlocks = document.getElementById("container");
 
             playerXCord++;
         }
+        //If block to right  is a crate and block after that i empty - perform a move
+        else if (classNameRightPlayer == Entities.Block && classNameTwoRightPlayer == Tiles.Space){
+            console.log("Crate movement to right is possible");
+
+            //Remove current classes
+            divPlayer.classList.remove(classNamePlayer);
+            divRightPlayer.classList.remove(classNameRightPlayer);
+            divTwoRightPlayer.classList.remove(classNameTwoRightPlayer);
+
+            //Add classes
+            divTwoRightPlayer.classList.add(classNameRightPlayer);
+            divRightPlayer.classList.add(classNamePlayer);
+            divPlayer.classList.add(Tiles.Space);
+
+            playerXCord++;
+        }
+        
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function movePlayerUpVer2(){
+        console.log("Ver 2.0.Player moved UP[in function]");
+        
+        //Get cordinates for player
+        let xCordPlayer = playerXCord;
+        let yCordPlayer = playerYCord;
+
+        //Get cord for div above player
+        let xCordAbovePlayer = xCordPlayer;
+        let yCordAbovePlayer = yCordPlayer - 1;
+
+        //Get cord 2 div above player
+        let xCordTwoAbovePlayer = xCordPlayer;
+        let yCordTwoAbovePlayer = yCordPlayer - 2;
+
+        //Id strings
+        let idPlayer = "x" + xCordPlayer + "y" + yCordPlayer;
+        let idAbovePlayer = "x" + xCordAbovePlayer + "y" + yCordAbovePlayer;
+        let idTwoAbovePlayer = "x" + xCordTwoAbovePlayer + "y" + yCordTwoAbovePlayer;
+
+        //Get all div elements
+        let divPlayer = document.getElementById(idPlayer);
+        let divAbovePlayer = document.getElementById(idAbovePlayer);
+        let divTwoAbovePlayer = document.getElementById(idTwoAbovePlayer);
+
+        //Store classnames
+        let classNamePlayer = divPlayer.className;
+        let classNameAbovePlayer = divAbovePlayer.className;
+        //let classNameTwoAbovePlayer = divTwoAbovePlayer.className;
+
+        //Any of theese conditions prevent movement
+        if (classNameAbovePlayer == Tiles.Wall ){
+            //no opp
+        }
+        else {
+            //If movement possible, do these 3 statement
+            divPlayer.classList.remove(Entities.Character);
+            divAbovePlayer.classList.add(Entities.Character);
+            //Update player Cordinates
+            playerYCord--;
+        }
+
+
+    }
+
+    function movePlayerDownVer2(){    
+        console.log("Ver 2.0 - Player moved DOWN[in functions]");
+
+        //Get cordinates for player
+        let xCordPlayer = playerXCord;
+        let yCordPlayer = playerYCord;
+
+        //Get cord for div below player
+        let xCordBelowPlayer = xCordPlayer;
+        let yCordBelowPlayer = yCordPlayer + 1;
+
+        //Get cord 2 div below player
+        let xCordTwoBelowPlayer = xCordPlayer;
+        let yCordTwoBelowPlayer = yCordPlayer + 2;
+
+        //Id strings
+        let idPlayer = "x" + xCordPlayer + "y" + yCordPlayer;                
+        let idBelowPlayer = "x" + xCordBelowPlayer + "y" + yCordBelowPlayer;
+        let idTwoBelowPlayer = "x" + xCordTwoBelowPlayer + "y" + yCordTwoBelowPlayer;
+
+        //Get all div elements
+        let divPlayer = document.getElementById(idPlayer);
+        let divBelowPlayer = document.getElementById(idBelowPlayer) 
+        let divTwoBelowPlayer = document.getElementById(idTwoBelowPlayer);    
+        
+        //Store classnames
+        let classNamePlayer = divPlayer.className;
+        let classNameBelowPlayer = divBelowPlayer.className;
+        //let classNameTwoBelowPlayer = divTwoBelowPlayer.className;
+
+        //Any of theese conditions prevent movement
+        if (classNameBelowPlayer == Tiles.Wall){
+            //No op
+        }        
+        else {
+            //If movement possible, do these 3 statement
+            divPlayer.classList.remove(Entities.Character);
+            divBelowPlayer.classList.add(Entities.Character);
+            //Update player Cordinates
+            playerYCord++;
+        }
+
+    }
+
+    function movePlayerLeftVer2(){
+        console.log("Ver 2.0 - Player moved LEFT[in function]");
+
+        //Get cordinates for player
+        let xCordPlayer = playerXCord;
+        let yCordPlayer = playerYCord;
+
+        //Get cord for div left of player
+        let xCordLeftPlayer = xCordPlayer - 1;
+        let yCordLeftPlayer = yCordPlayer;
+
+        //Get cord 2 div on left player
+        let xCordTwoLeftPlayer = xCordPlayer - 2;
+        let yCordTwoLeftPlayer = yCordPlayer;
+
+        //Id strings
+        let idPlayer = "x" + xCordPlayer + "y" + yCordPlayer;                
+        let idLeftPlayer = "x" + xCordLeftPlayer + "y" + yCordLeftPlayer;
+        let idTwoLeftPlayer = "x" + xCordTwoLeftPlayer + "y" + yCordTwoLeftPlayer;
+
+        //Get all div elements
+        let divPlayer = document.getElementById(idPlayer);
+        let divLeftPlayer = document.getElementById(idLeftPlayer) 
+        //let divTwoLeftPlayer = document.getElementById(idTwoLeftPlayer);
+
+        //Store classnames
+        let classNamePlayer = divPlayer.className;
+        let classNameLeftPlayer = divLeftPlayer.className;
+        //let classNameTwoLeftPlayer = divTwoLeftPlayer.className;
+
+        //Movement Not allowedallowed
+        if (classNameLeftPlayer == Tiles.Wall){
+            
+        }
+        //A Movable block (We know for sure that at least 2 block are present to the left)
+        else if (classNameLeftPlayer == Entities.Block){
+            let divTwoLeftPlayer = document.getElementById(idTwoLeftPlayer);
+            let classNameTwoLeftPlayer = divTwoLeftPlayer.className;
+            //Crate+crate or wall+crate or crate+(crate+tile-goal) - do nothing
+            if (classNameTwoLeftPlayer == Entities.Block || 
+                classNameLeftPlayer == Tiles.Wall || 
+                classNameLeftPlayer == (Entities.Block + " " + Tiles.Wall)){
+                //No op
+            }
+            //Move block one step to left
+            else {
+
+            }
+        }
+        else {
+            //If movement possible, do these 3 statement
+            divPlayer.classList.remove(Entities.Character);
+            divLeftPlayer.classList.add(Entities.Character);
+            //Update player Cordinates
+            playerXCord--;
+        }
+
+    }
+
+    function movePlayerRightVer2(){
+
+        console.log("Ver 2.0 - Player moved RIGHT[In function]");
+
+        //Get cordinates for player
+        let xCordPlayer = playerXCord;
+        let yCordPlayer = playerYCord;
+
+        //Get cord for div right of player
+        let xCordRightPlayer = xCordPlayer + 1;
+        let yCordRightPlayer = yCordPlayer;
+
+        //Get cord of 2 divs on right player
+        let xCordTwoRightPlayer = xCordPlayer + 2;
+        let yCordTwoRightPlayer = yCordPlayer;
+
+        //Id strings
+        let idPlayer = "x" + xCordPlayer + "y" + yCordPlayer;                
+        let idRightPlayer = "x" + xCordRightPlayer + "y" + yCordRightPlayer;
+        let idTwoRightPlayer = "x" + xCordTwoRightPlayer + "y" + yCordTwoRightPlayer;
+
+        //Get all div elements
+        let divPlayer = document.getElementById(idPlayer);
+        let divRightPlayer = document.getElementById(idRightPlayer) 
+        let divTwoRightPlayer = document.getElementById(idTwoRightPlayer);    
+
+        //Store classnames
+        let classNamePlayer = divPlayer.className;
+        let classNameRightPlayer = divRightPlayer.className;
+        //let classNameTwoRightPlayer = divTwoRightPlayer.className;
+
+        if (classNameRightPlayer == Tiles.Wall){
+            //No op
+        }
+        else {
+            //If movement possible, do these 3 statement
+            divPlayer.classList.remove(Entities.Character);
+            divRightPlayer.classList.add(Entities.Character);
+            //Update player Cordinates
+            playerXCord++;
+        }
+
     }
 
 

@@ -48,3 +48,11 @@
     background-color: var(--crate-in-goal-color);
 }
 
+
+.entity-player.tile-goal {
+    background-color: #cf0ded;
+}
+.entity-block.tile-goal {
+    background-color: green;
+}
+
