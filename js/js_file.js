@@ -162,6 +162,23 @@ let containerForBlocks = document.getElementById("container");
 
             playerYCord--;
         }
+        //If upper block is  crate AND block after that is empty - perform a move        
+        else if (classNameAbovePlayer == Entities.Block && classNameTwoAbovePlayer == Tiles.Space){
+            console.log("Crate movement up is possible");
+            
+            //Remove current classes
+            divPlayer.classList.remove(classNamePlayer);
+            divAbovePlayer.classList.remove(classNameAbovePlayer);
+            divTwoAbovePlayer.classList.remove(classNameTwoAbovePlayer);
+
+            //Add classess
+            divTwoAbovePlayer.classList.add(classNameAbovePlayer);
+            divAbovePlayer.classList.add(classNamePlayer);
+            divPlayer.classList.add(Tiles.Space);//??????
+
+            playerYCord--;
+
+        }
 
     }
 
@@ -260,6 +277,21 @@ let containerForBlocks = document.getElementById("container");
             //And swap them
             divPlayer.classList.add(classNameLeftPlayer);
             divLeftPlayer.classList.add(classNamePlayer);
+
+            playerXCord--;
+        }
+        //If block to left is a crate and block after that is empty - move crate to left
+        else if (classNameLeftPlayer == Entities.Block && classNameTwoLeftPlayer == Tiles.Space){
+            console.log("Crate movement to left is possible");
+
+            //Remove current classes
+            divPlayer.classList.remove(classNamePlayer);
+            divLeftPlayer.classList.remove(classNameLeftPlayer);
+            divTwoLeftPlayer.classList.remove(classNameTwoLeftPlayer);
+
+            divTwoLeftPlayer.classList.add(classNameLeftPlayer);
+            divLeftPlayer.classList.add(classNamePlayer);
+            divPlayer.classList.add(Tiles.Space);//??????
 
             playerXCord--;
         }
