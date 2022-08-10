@@ -1,5 +1,4 @@
 console.log("external js-file loaded");
-console.log("|" +  tileMap01.mapGrid[3][4][0] + "|");
 
 let xSizeBlock = 32;
 let ySizeBlock = 32;
