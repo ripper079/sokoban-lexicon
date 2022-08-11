@@ -12,6 +12,7 @@
 
     --crate-not-in-goal-color: #FFB552;
     --crate-in-goal-color: #cf0ded;
+
 }
 
 #container {
@@ -51,6 +52,7 @@
 
 .entity-player.tile-goal {
     background-color: #cf0ded;
+    border-radius: 30%;
 }
 .entity-block.tile-goal {
     background-color: green;

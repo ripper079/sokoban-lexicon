@@ -20,6 +20,10 @@ document.addEventListener('keyup', (event) => {
     // Alert the key name and key code on keydown
     // console.log(`Key pressed ${name} \r\n Key code value: ${code}`);    
 
+    if (countNumberBlocksDone() == countGoals){        
+        alert("You won, congrats!");
+    }
+
     //Arrow Down
     if (code == "ArrowDown" || code == "KeyS")
     {
@@ -65,7 +69,7 @@ let containerForBlocks = document.getElementById("container");
             let idString = "x" + x + "y" + y;
             //Set smaller font size
             divElement.style.fontSize = "8px";
-            divElement.textContent = idString;
+            //divElement.textContent = idString;
             //Id tag
             divElement.id = idString;
             
@@ -392,8 +396,25 @@ let containerForBlocks = document.getElementById("container");
 
 
 
+//Return number of crate in goal
+function countNumberBlocksDone(){
+    var classStringToMatch = Tiles.Goal + " " + Entities.Block;
+    var counterMatches = 0;
+    //console.log("Correct string to match:|" + classStringToMatch + "|");
+    for (let y = 0; y < tileMap01.height; y++){
+        for (let x = 0; x < tileMap01.width; x++){
+            
+            //Create id string
+            let idString = "x" + x + "y" + y;
 
+            if (document.getElementById(idString).className == classStringToMatch){
+                counterMatches++;
+            }
+        }
+    }
 
+    return counterMatches;                
+}
 
 
 
@@ -401,7 +422,7 @@ let containerForBlocks = document.getElementById("container");
 
 
     function movePlayerUpVer2(){
-        console.log("Ver 2.0.Player moved UP[in function]");
+        //console.log("Ver 2.0.Player moved UP[in function]");
         
         //Get cordinates for player
         let xCordPlayer = playerXCord;
@@ -465,7 +486,7 @@ let containerForBlocks = document.getElementById("container");
     }
 
     function movePlayerDownVer2(){    
-        console.log("Ver 2.0 - Player moved DOWN[in functions]");
+        //console.log("Ver 2.0 - Player moved DOWN[in functions]");
 
         //Get cordinates for player
         let xCordPlayer = playerXCord;
@@ -529,7 +550,7 @@ let containerForBlocks = document.getElementById("container");
     }
 
     function movePlayerLeftVer2(){
-        console.log("Ver 2.0 - Player moved LEFT[in function]");
+        //console.log("Ver 2.0 - Player moved LEFT[in function]");
 
         //Get cordinates for player
         let xCordPlayer = playerXCord;
@@ -598,7 +619,7 @@ let containerForBlocks = document.getElementById("container");
 
     function movePlayerRightVer2(){
 
-        console.log("Ver 2.0 - Player moved RIGHT[In function]");
+        //console.log("Ver 2.0 - Player moved RIGHT[In function]");
 
         //Get cordinates for player
         let xCordPlayer = playerXCord;
@@ -664,7 +685,7 @@ let containerForBlocks = document.getElementById("container");
       createInitialMap();
 
 
-
+      countNumberBlocksDone();
 
 
 
