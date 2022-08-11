@@ -1,28 +1,21 @@
 :root {
     --wall-color: #848484;
-
-    
+        
     --player-color: #FFFF00;
     
     --goal-color: #FF0000;
     
-    --empty-space-color: #DED6AD;
-    
-    --filler-background-color: #09f2e6;
+    --empty-space-color: #DED6AD;    
 
-    --crate-not-in-goal-color: #FFB552;
+    --crate-not-in-goal-color: #e98e16;
     --crate-in-goal-color: #cf0ded;
-
 }
 
-#container {
-    background-color: var(--filler-background-color);
-
+#container {    
     position: relative;
-    width: 700px;
-    height: 700px;
+    
     margin: auto;
-    margin-top: 10px;
+    margin-top: 10px;    
 }
 
 .tile-wall{
@@ -49,10 +42,9 @@
     background-color: var(--crate-in-goal-color);
 }
 
-
 .entity-player.tile-goal {
     background-color: #cf0ded;
-    border-radius: 30%;
+    border-radius: 25%;
 }
 .entity-block.tile-goal {
     background-color: green;
