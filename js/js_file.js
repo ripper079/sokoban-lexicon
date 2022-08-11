@@ -79,6 +79,8 @@ let containerForBlocks = document.getElementById("container");
             //Movable block color
             else if (tileMap01.mapGrid[y][x][0] === "B"){
                 divElement.classList.add(Entities.Block);
+                //Added
+                divElement.classList.add(Tiles.Space);
             }
             //Player Color
             else if (tileMap01.mapGrid[y][x][0] === "P"){                
@@ -421,7 +423,7 @@ let containerForBlocks = document.getElementById("container");
         //Get all div elements
         let divPlayer = document.getElementById(idPlayer);
         let divAbovePlayer = document.getElementById(idAbovePlayer);
-        let divTwoAbovePlayer = document.getElementById(idTwoAbovePlayer);
+        //let divTwoAbovePlayer = document.getElementById(idTwoAbovePlayer);
 
         //Store classnames
         let classNamePlayer = divPlayer.className;
@@ -431,6 +433,25 @@ let containerForBlocks = document.getElementById("container");
         //Any of theese conditions prevent movement
         if (classNameAbovePlayer == Tiles.Wall ){
             //no opp
+        }
+        //If block above player is a crate
+        else if (divAbovePlayer.classList.contains(Entities.Block)){
+            //2 blocks away from player, determine
+            let divTwoAbovePlayer = document.getElementById(idTwoAbovePlayer);
+            let classNameTwoAbovePlayer = divTwoAbovePlayer.className;
+
+            //If following block contains a crate or wall then move not possible
+            if (divTwoAbovePlayer.classList.contains(Entities.Block) || divTwoAbovePlayer.classList.contains(Tiles.Wall)){
+                ;//no op
+            }
+            else {
+                divPlayer.classList.remove(Entities.Character);
+                divAbovePlayer.classList.remove(Entities.Block);
+
+                divTwoAbovePlayer.classList.add(Entities.Block);
+                divAbovePlayer.classList.add(Entities.Character);
+                playerYCord--;
+            }
         }
         else {
             //If movement possible, do these 3 statement
@@ -466,7 +487,7 @@ let containerForBlocks = document.getElementById("container");
         //Get all div elements
         let divPlayer = document.getElementById(idPlayer);
         let divBelowPlayer = document.getElementById(idBelowPlayer) 
-        let divTwoBelowPlayer = document.getElementById(idTwoBelowPlayer);    
+        //let divTwoBelowPlayer = document.getElementById(idTwoBelowPlayer);    
         
         //Store classnames
         let classNamePlayer = divPlayer.className;
@@ -475,8 +496,28 @@ let containerForBlocks = document.getElementById("container");
 
         //Any of theese conditions prevent movement
         if (classNameBelowPlayer == Tiles.Wall){
-            //No op
+            ;//No op
         }        
+        //If block below of player is a crate
+        else if (divBelowPlayer.classList.contains(Entities.Block)){
+            //2 block away from player, determine
+            let divTwoBelowPlayer = document.getElementById(idTwoBelowPlayer);
+            let classNameTwoBelowPlayer = divTwoBelowPlayer.className;
+
+            //If follwing block contains a crate or wall then move not possible
+            if (divTwoBelowPlayer.classList.contains(Entities.Block) || divTwoBelowPlayer.classList.contains(Tiles.Wall)){
+                ;//no op
+            }
+            else {
+                divPlayer.classList.remove(Entities.Character);
+                divBelowPlayer.classList.remove(Entities.Block);
+
+                divTwoBelowPlayer.classList.add(Entities.Block);
+                divBelowPlayer.classList.add(Entities.Character);
+
+                playerYCord++;
+            }
+        }
         else {
             //If movement possible, do these 3 statement
             divPlayer.classList.remove(Entities.Character);
@@ -517,24 +558,33 @@ let containerForBlocks = document.getElementById("container");
         let classNameLeftPlayer = divLeftPlayer.className;
         //let classNameTwoLeftPlayer = divTwoLeftPlayer.className;
 
-        //Movement Not allowedallowed
+        //Movement Not allowed
         if (classNameLeftPlayer == Tiles.Wall){
-            
+            ;//no op
         }
-        //A Movable block (We know for sure that at least 2 block are present to the left)
-        else if (classNameLeftPlayer == Entities.Block){
+        //If block on left side of player is a crate 
+        else if (divLeftPlayer.classList.contains(Entities.Block)){
+            console.log("Träffar:" + classNameLeftPlayer);
+            //2 blocks aways from player, determine
             let divTwoLeftPlayer = document.getElementById(idTwoLeftPlayer);
             let classNameTwoLeftPlayer = divTwoLeftPlayer.className;
-            //Crate+crate or wall+crate or crate+(crate+tile-goal) - do nothing
-            if (classNameTwoLeftPlayer == Entities.Block || 
-                classNameLeftPlayer == Tiles.Wall || 
-                classNameLeftPlayer == (Entities.Block + " " + Tiles.Wall)){
-                //No op
+            
+            //If following block contains a crate or wall then move not possible
+            if (divTwoLeftPlayer.classList.contains(Entities.Block) || divTwoLeftPlayer.classList.contains(Tiles.Wall)){
+                ;//No op
             }
-            //Move block one step to left
             else {
+                divPlayer.classList.remove(Entities.Character);
+                divLeftPlayer.classList.remove(Entities.Block);
+                
+                divTwoLeftPlayer.classList.add(Entities.Block);
+                divLeftPlayer.classList.add(Entities.Character);
+    
+                playerXCord--;
 
             }
+
+
         }
         else {
             //If movement possible, do these 3 statement
@@ -570,7 +620,7 @@ let containerForBlocks = document.getElementById("container");
         //Get all div elements
         let divPlayer = document.getElementById(idPlayer);
         let divRightPlayer = document.getElementById(idRightPlayer) 
-        let divTwoRightPlayer = document.getElementById(idTwoRightPlayer);    
+        //let divTwoRightPlayer = document.getElementById(idTwoRightPlayer);    
 
         //Store classnames
         let classNamePlayer = divPlayer.className;
@@ -579,6 +629,25 @@ let containerForBlocks = document.getElementById("container");
 
         if (classNameRightPlayer == Tiles.Wall){
             //No op
+        }
+        //If block on right side of player is a crate
+        else if (divRightPlayer.classList.contains(Entities.Block)){
+            divTwoRightPlayer = document.getElementById(idTwoRightPlayer); 
+            let classNameTwoRightPlayer = divTwoRightPlayer.className;
+
+            //If following block contains a crate or wall then move not possible
+            if (divTwoRightPlayer.classList.contains(Entities.Block) || divTwoRightPlayer.classList.contains(Tiles.Wall)){
+                ;//no op
+            }
+            else {
+                divPlayer.classList.remove(Entities.Character);
+                divRightPlayer.classList.remove(Entities.Block);
+
+                divTwoRightPlayer.classList.add(Entities.Block);
+                divRightPlayer.classList.add(Entities.Character);
+
+                playerXCord++;
+            }
         }
         else {
             //If movement possible, do these 3 statement
